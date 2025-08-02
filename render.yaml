@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: network
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn project4.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: project4.settings
+      - key: PYTHON_VERSION
+        value: "3.10"
+      - key: DATABASE_URL
+        value: postgresql://network_db_50ti_user:Sx93lpKurNwOSs6Kh0f8bC7gwTVkw3cn@dpg-d278947diees73c3qn40-a.frankfurt-postgres.render.com/network_db_50ti

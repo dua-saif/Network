@@ -1,0 +1,37 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+  <h1 class="mx-5">Following</h1>
+ 
+  <div class="all-posts mx-5 my-4">
+    {% for post in posts_of_the_page %}
+      <div class="row post my-3 py-2 border rounded bg-light">
+        <h5 class="username mb-2">
+          <a href="{% url 'profile' post.user.id %}">@{{ post.user.username }}</a>
+        </h5>
+        <h6 class="content">{{ post.content }}</h6>
+        <p class="date text-muted">{{ post.date }}</p>
+      </div>
+    {% empty %}
+      <p class="text-muted">You’re not following anyone with posts yet.</p>
+    {% endfor %}
+  </div>
+
+  {% if posts_of_the_page.has_other_pages %}
+    <nav aria-label="Page navigation">
+      <ul class="pagination d-flex justify-content-center">
+        {% if posts_of_the_page.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts_of_the_page.previous_page_number }}">Previous</a>
+          </li>
+        {% endif %}
+        {% if posts_of_the_page.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts_of_the_page.next_page_number }}">Next</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}
+
